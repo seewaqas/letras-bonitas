@@ -13,9 +13,10 @@
   --warn: #9a3412;
   --ok: #166534;
   --shadow: 0 16px 40px rgba(48, 28, 16, 0.06);
-  --header: 4.25rem;
+  --header: 3.75rem;
   --radius: 1rem;
-  --max: 72rem;
+  --max: 90rem;
+  --result-size: 20px;
   font-family: "Inter Variable", Inter, system-ui, sans-serif;
 }
 
@@ -222,8 +223,36 @@ h2 { font-size: 1.45rem; margin: 0 0 0.6rem; }
   top: var(--header);
   z-index: 15;
   background: var(--surface);
-  padding-bottom: 0.75rem;
+  margin: -0.15rem -1rem 0.35rem;
+  padding: 0.35rem 1rem 0.45rem;
+  border-bottom: 1px solid var(--line);
 }
+
+.size-row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: 0.4rem;
+}
+
+.size-control {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  flex: 1;
+  min-width: 0;
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+.size-control input[type="range"] {
+  flex: 1;
+  min-width: 0;
+  accent-color: var(--accent);
+  height: 1.75rem;
+}
+
+.size-row .counter { margin: 0; white-space: nowrap; }
 
 .field {
   display: flex;
@@ -233,8 +262,8 @@ h2 { font-size: 1.45rem; margin: 0 0 0.6rem; }
 
 textarea {
   width: 100%;
-  resize: vertical;
-  min-height: 3.4rem;
+  resize: none;
+  min-height: 2.75rem;
   border-radius: 0.9rem;
   border: 1px solid var(--line);
   background: var(--bg);
@@ -308,35 +337,57 @@ summary:focus-visible {
   margin: 0.8rem 0 0;
   padding: 0;
   display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 0.7rem;
+  align-items: stretch;
 }
 
 .card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   border: 1px solid var(--line);
   border-radius: var(--radius);
-  padding: 0.9rem;
+  padding: 0.65rem 0.7rem 0.55rem;
   background: color-mix(in srgb, var(--bg) 55%, var(--surface));
+  min-height: 6.25rem;
 }
 
 html.js .card.is-extra { display: none; }
 
+.card[hidden] { display: none !important; }
+
 .card-output {
   margin: 0;
   font-family: "Segoe UI", "Noto Sans Symbols 2", "Apple Color Emoji", "Segoe UI Emoji", sans-serif;
-  font-size: 1.45rem;
-  line-height: 1.35;
+  font-size: var(--result-size);
+  line-height: 1.25;
+  text-align: center;
   overflow-wrap: anywhere;
 }
 
 .card-row {
   display: flex;
-  flex-wrap: wrap;
-  gap: 0.4rem;
+  flex-wrap: nowrap;
+  gap: 0.35rem;
   align-items: center;
-  margin-top: 0.75rem;
+  margin-top: 0.4rem;
 }
 
-.card-name { font-size: 0.92rem; color: var(--muted); margin-right: auto; }
+.card .btn {
+  min-height: 2.25rem;
+  padding: 0 0.7rem;
+  font-size: 0.85rem;
+}
+
+.card-name {
+  font-size: 0.82rem;
+  color: var(--muted);
+  margin-right: auto;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
 
 .badge {
   font-size: 0.72rem;
@@ -356,7 +407,7 @@ html.js .card.is-extra { display: none; }
   font-weight: 650;
 }
 
-.btn-fav { width: 2.75rem; }
+.btn-fav { width: 2.25rem; min-width: 2.25rem; padding: 0; }
 
 .btn-clear { padding: 0 0.9rem; }
 
@@ -498,6 +549,12 @@ html.js .card.is-extra { display: none; }
   .cases { grid-template-columns: 1fr 1fr; }
   .footer-grid { grid-template-columns: 1.4fr 1fr 1fr; }
   .tool { padding: 1.25rem; }
+  .composer {
+    margin-left: -1.25rem;
+    margin-right: -1.25rem;
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+  }
 }
 
 @media (max-width: 879px) {
@@ -511,7 +568,8 @@ html.js .card.is-extra { display: none; }
 
 .name-grid {
   display: grid;
-  gap: 0.75rem;
+  grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+  gap: 0.65rem;
   margin-top: 0.8rem;
 }
 
@@ -521,8 +579,8 @@ html.js .card.is-extra { display: none; }
   align-items: center;
   justify-content: center;
   gap: 0.35rem;
-  min-height: 7.5rem;
-  padding: 1rem 0.8rem;
+  min-height: 5.6rem;
+  padding: 0.65rem 0.5rem;
   border: 1px solid var(--line);
   border-radius: var(--radius);
   background: var(--surface);
@@ -534,8 +592,8 @@ html.js .card.is-extra { display: none; }
 
 .name-output {
   font-family: "Segoe UI", "Noto Sans Symbols 2", "Apple Color Emoji", "Segoe UI Emoji", sans-serif;
-  font-size: 1.65rem;
-  line-height: 1.35;
+  font-size: var(--result-size);
+  line-height: 1.25;
   overflow-wrap: anywhere;
 }
 
@@ -569,10 +627,6 @@ html.js .name-card.is-extra { display: none; }
 .nick-block { margin-top: 1.5rem; }
 
 .nick-block h3 { margin-bottom: 0.25rem; }
-
-@media (min-width: 720px) {
-  .name-grid { grid-template-columns: 1fr 1fr; }
-}
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }

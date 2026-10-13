@@ -59,6 +59,32 @@ function selectText(node: HTMLElement): void {
   selection?.addRange(range);
 }
 
+const SIZE_KEY = "lb-font-size";
+
+function mountSize(root: HTMLElement): void {
+  const slider = root.querySelector<HTMLInputElement>("[data-size]");
+  if (!slider) return;
+  let stored = 20;
+  try {
+    const parsed = Number(localStorage.getItem(SIZE_KEY));
+    if (parsed >= 16 && parsed <= 48) stored = parsed;
+  } catch {
+    /* Keep the default size. */
+  }
+  const apply = (value: number): void => {
+    const next = Math.min(48, Math.max(16, Math.round(value)));
+    slider.value = String(next);
+    document.documentElement.style.setProperty("--result-size", `${next}px`);
+    try {
+      localStorage.setItem(SIZE_KEY, String(next));
+    } catch {
+      /* The slider still works for this visit. */
+    }
+  };
+  apply(stored);
+  slider.addEventListener("input", () => apply(Number(slider.value)));
+}
+
 export function mountGenerator(root: HTMLElement): void {
   const input = root.querySelector<HTMLTextAreaElement>("[data-input]");
   const counter = root.querySelector<HTMLElement>("[data-counter]");
@@ -71,6 +97,7 @@ export function mountGenerator(root: HTMLElement): void {
   const limitMax = Number(root.dataset.limitMax ?? "");
   const hasLimit = Number.isFinite(limitMax) && limitMax > 0;
   const styles = new Map(STYLES.map((style) => [style.id, style]));
+  mountSize(root);
   const favs = readFavs();
   let category = root.dataset.category || "all";
   let expanded = false;
