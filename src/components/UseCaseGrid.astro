@@ -1,0 +1,19 @@
+---
+import { USE_CASES } from "../data/landings.ts";
+---
+
+<div class="cases">
+  {
+    USE_CASES.map((item) => (
+      <article class="case">
+        <h3><a href={item.href}>{item.title}</a></h3>
+        <p>{item.text}</p>
+        <div class="case-links">
+          {item.links.map((link) => (
+            <a href={link.href}>{link.label}</a>
+          ))}
+        </div>
+      </article>
+    ))
+  }
+</div>

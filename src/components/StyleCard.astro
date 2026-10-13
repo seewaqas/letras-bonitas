@@ -1,0 +1,41 @@
+---
+import type { StyleDefinition } from "../lib/styles.ts";
+import { visibleLength } from "../lib/transform.ts";
+
+interface Props {
+  item: StyleDefinition;
+  text: string;
+  extra: boolean;
+  inactive: boolean;
+  limitMax?: number;
+}
+
+const { item, text, extra, inactive, limitMax } = Astro.props;
+const style = item;
+const length = visibleLength(text);
+const over = limitMax !== undefined && length > limitMax;
+const badge = style.badge === "nuevo" ? "Nuevo" : style.badge === "tendencia" ? "Tendencia" : "";
+---
+
+<li
+  class:list={["card", extra && "is-extra"]}
+  data-id={style.id}
+  data-name={style.name.toLocaleLowerCase("es")}
+  data-cats={style.categories.join(" ")}
+  hidden={inactive}
+>
+  <p class="card-output" data-output>{text}</p>
+  <div class="card-row">
+    <span class="card-name">{style.name}</span>
+    {badge && <span class="badge">{badge}</span>}
+    {
+      limitMax !== undefined && (
+        <span class:list={["card-len", over && "is-over"]} data-len>
+          {length}/{limitMax}
+        </span>
+      )
+    }
+    <button class="btn btn-copy" type="button" data-copy aria-label={`Copiar estilo ${style.name}`}>Copiar</button>
+    <button class="btn btn-fav" type="button" data-fav aria-pressed="false" aria-label={`Guardar ${style.name}`}>♡</button>
+  </div>
+</li>

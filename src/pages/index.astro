@@ -1,0 +1,72 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Generator from "../components/Generator.astro";
+import UseCaseGrid from "../components/UseCaseGrid.astro";
+import FaqList from "../components/FaqList.astro";
+import AlphabetTable from "../components/AlphabetTable.astro";
+import { HOME_FAQ } from "../data/landings.ts";
+import { DEFAULT_SAMPLE, PROFILE_PHRASES } from "../data/site.ts";
+import { jsonLdScript, pageGraph } from "../lib/seo.ts";
+
+const description =
+  "Generador de letras bonitas para copiar y pegar. Nombres y bios de Instagram y TikTok, mensajes de WhatsApp y nicks de Free Fire.";
+const origin = Astro.site?.href;
+const jsonLd = jsonLdScript(
+  pageGraph({
+    name: "Letras Bonitas",
+    description,
+    url: origin,
+    faq: HOME_FAQ,
+    crumbs: origin ? [{ name: "Inicio", url: origin }] : [],
+  }),
+);
+---
+
+<BaseLayout title="Letras bonitas para copiar y pegar" description={description} jsonLd={jsonLd}>
+  <div class="wrap">
+    <header class="hero">
+      <p class="eyebrow">Gratis y sin registro</p>
+      <h1>Letras bonitas para copiar y pegar</h1>
+      <p class="lede">
+        Escribe una vez. Copia el estilo. Pégalo en Instagram, TikTok, WhatsApp o en un nombre de Free Fire.
+      </p>
+    </header>
+    <Generator sample={DEFAULT_SAMPLE} phrases={PROFILE_PHRASES} />
+    <section class="section">
+      <h2>Para qué se usan</h2>
+      <UseCaseGrid />
+    </section>
+    <section class="section prose">
+      <h2>¿Cómo usar el conversor?</h2>
+      <ol class="steps">
+        <li>Escribe tu texto. Si no sabes por dónde empezar, toca una frase lista.</li>
+        <li>Elige el estilo. En un nick de Free Fire, mira que la tarjeta no pase de 12 caracteres.</li>
+        <li>Pulsa Copiar. El botón dirá ¡Copiado!.</li>
+        <li>Pega el resultado en la bio, el chat, el estado o el juego.</li>
+      </ol>
+    </section>
+    <section class="section prose">
+      <h2>Dónde pegarlas</h2>
+      <p>
+        En Instagram y TikTok van en el nombre visible y en la biografía, no en el @usuario.
+        En WhatsApp van en el chat, el estado y, si el teléfono lo permite, el nombre del contacto.
+        En Free Fire van en el nick, que admite 12 caracteres. Discord admite unos 32 en el apodo.
+        En Roblox el @usuario no acepta estas letras; pruébalas solo en el nombre visible.
+      </p>
+      <p>
+        <a href="/letras-para-free-fire/">Nombres para Free Fire</a>,
+        <a href="/letras-para-instagram/">letras para Instagram</a>,
+        <a href="/letras-para-whatsapp/">letras para WhatsApp</a>.
+      </p>
+    </section>
+    <section class="section">
+      <h2>Abecedario</h2>
+      <p class="lede">A–Z y Ñ en cuatro estilos. Toca una letra para copiarla.</p>
+      <AlphabetTable />
+    </section>
+    <section class="section prose">
+      <h2>Preguntas frecuentes</h2>
+      <FaqList items={HOME_FAQ} />
+    </section>
+  </div>
+</BaseLayout>

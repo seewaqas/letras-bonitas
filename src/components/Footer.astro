@@ -1,0 +1,37 @@
+---
+import { LANDINGS } from "../data/landings.ts";
+import { hrefFor } from "../data/site.ts";
+
+const year = new Date().getFullYear();
+const tools = LANDINGS.filter((page) => !page.symbols);
+---
+
+<footer class="site-footer">
+  <div class="wrap footer-grid">
+    <div>
+      <strong>Letras Bonitas</strong>
+      <p class="fine">
+        Generador de letras para copiar y pegar en Instagram, WhatsApp, TikTok y nombres de Free Fire.
+        La conversión se hace en tu navegador.
+      </p>
+    </div>
+    <div>
+      <strong>Herramientas</strong>
+      <div>
+        {tools.map((page) => <a href={hrefFor(page.slug)}>{page.h1}</a>)}
+      </div>
+    </div>
+    <div>
+      <strong>Información</strong>
+      <div>
+        <a href="/privacidad/">Privacidad</a>
+        <a href="/cookies/">Cookies</a>
+        <a href="/aviso-legal/">Aviso legal</a>
+        <a href="/acerca-de/">Acerca de</a>
+        <a href="/contacto/">Contacto</a>
+        <a href="/simbolos/">Símbolos</a>
+      </div>
+      <p class="fine">© {year} Letras Bonitas</p>
+    </div>
+  </div>
+</footer>

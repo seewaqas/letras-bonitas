@@ -1,0 +1,65 @@
+---
+import { getStyle, renderStyle } from "../lib/styles.ts";
+import { hrefFor } from "../data/site.ts";
+
+const mark = getStyle("manuscrita");
+const logo = mark ? renderStyle(mark, "Letras") : "Letras";
+const path = Astro.url.pathname;
+
+const primary = [
+  ["letras-para-instagram", "Instagram"],
+  ["letras-para-whatsapp", "WhatsApp"],
+  ["letras-para-free-fire", "Free Fire"],
+  ["letras-para-discord", "Discord"],
+] as const;
+
+const styles = [
+  ["letras-cursivas", "Cursivas"],
+  ["letras-goticas", "Góticas"],
+  ["letras-aesthetic", "Aesthetic"],
+  ["letras-negritas", "Negritas"],
+  ["letras-chiquitas", "Chiquitas"],
+  ["letras-burbuja", "Burbuja"],
+  ["letras-graffiti", "Graffiti"],
+  ["letras-decoradas", "Decoradas"],
+  ["abecedario", "Abecedario"],
+] as const;
+
+function current(slug: string): "page" | undefined {
+  return path === hrefFor(slug) ? "page" : undefined;
+}
+---
+
+<header class="site-header">
+  <div class="wrap header-bar">
+    <a class="logo" href="/">
+      <span class="logo-mark">{logo}</span>
+      <span class="logo-sub">Bonitas</span>
+    </a>
+    <button class="theme-toggle" type="button" data-theme-toggle aria-label="Activar modo oscuro">Tema</button>
+    <button class="nav-toggle" type="button" data-nav-toggle aria-expanded="false" aria-controls="menu-principal">
+      Menú
+    </button>
+    <nav class="nav" id="menu-principal" data-nav aria-label="Principal">
+      {
+        primary.map(([slug, label]) => (
+          <a href={hrefFor(slug)} aria-current={current(slug)}>
+            {label}
+          </a>
+        ))
+      }
+      <details class="menu">
+        <summary>Estilos</summary>
+        <div class="menu-panel">
+          {
+            styles.map(([slug, label]) => (
+              <a href={hrefFor(slug)} aria-current={current(slug)}>
+                {label}
+              </a>
+            ))
+          }
+        </div>
+      </details>
+    </nav>
+  </div>
+</header>

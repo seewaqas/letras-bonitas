@@ -1,0 +1,18 @@
+---
+import { SYMBOL_GROUPS } from "../data/symbols.ts";
+---
+
+{
+  SYMBOL_GROUPS.map((group) => (
+    <section class="section">
+      <h2>{group.title}</h2>
+      <div class="symbols">
+        {group.items.map((item) => (
+          <button class="symbol" type="button" data-copy-text={item} data-label={item}>
+            {item}
+          </button>
+        ))}
+      </div>
+    </section>
+  ))
+}

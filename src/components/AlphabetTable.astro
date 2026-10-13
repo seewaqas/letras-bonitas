@@ -1,0 +1,41 @@
+---
+import { getStyle, renderStyle } from "../lib/styles.ts";
+
+const columns = ["negrita", "cursiva", "gotica", "burbuja"] as const;
+const letters = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZ".split("");
+const styles = columns.map((id) => getStyle(id)).filter((style) => style !== undefined);
+---
+
+<div class="alpha-wrap">
+  <table class="alpha">
+    <thead>
+      <tr>
+        <th>Letra</th>
+        {styles.map((style) => <th>{style.name}</th>)}
+      </tr>
+    </thead>
+    <tbody>
+      {
+        letters.map((letter) => (
+          <tr>
+            <td>
+              <button class="cell" type="button" data-copy-text={letter} data-label={letter}>
+                {letter}
+              </button>
+            </td>
+            {styles.map((style) => {
+              const glyph = renderStyle(style, letter);
+              return (
+                <td>
+                  <button class="cell" type="button" data-copy-text={glyph} data-label={glyph}>
+                    {glyph}
+                  </button>
+                </td>
+              );
+            })}
+          </tr>
+        ))
+      }
+    </tbody>
+  </table>
+</div>

@@ -1,0 +1,80 @@
+---
+import StyleCard from "./StyleCard.astro";
+import { CATEGORIES, STYLES, renderStyle, stylesInCategory } from "../lib/styles.ts";
+import type { Phrase, TextLimit } from "../data/site.ts";
+import { clampInput, visibleLength } from "../lib/transform.ts";
+
+interface Props {
+  sample: string;
+  category?: string;
+  limit?: TextLimit;
+  phrases?: readonly Phrase[];
+}
+
+const { sample, category = "all", limit, phrases = [] } = Astro.props;
+const text = clampInput(sample);
+const active = new Set(stylesInCategory(category).map((style) => style.id));
+let shown = 0;
+const length = visibleLength(text);
+---
+
+<section class="tool" data-generator data-category={category} data-limit-max={limit?.max}>
+  <div class="composer">
+    <div class="field">
+      <label class="sr-only" for="texto">Tu texto</label>
+      <textarea id="texto" data-input rows="2" maxlength="800" placeholder="Escribe tu texto aquí...">{text}</textarea>
+      <button class="btn btn-clear" type="button" data-clear>Limpiar</button>
+    </div>
+    <p class:list={["counter", limit && length > limit.max && "is-over"]} data-counter>
+      {length} caracteres
+    </p>
+    {limit && <p class="fine">{limit.hint}</p>}
+    {
+      phrases.length > 0 && (
+        <div class="phrases" aria-label="Frases listas">
+          {phrases.map((phrase) => (
+            <button class="phrase" type="button" data-phrase={phrase.text}>
+              {phrase.label}
+            </button>
+          ))}
+        </div>
+      )
+    }
+    <div class="chips" role="toolbar" aria-label="Filtrar estilos">
+      {
+        CATEGORIES.map((item) => (
+          <button
+            class="chip"
+            type="button"
+            data-chip={item.id}
+            aria-pressed={item.id === category ? "true" : "false"}
+          >
+            {item.label}
+            {item.id !== "favoritos" && <span class="chip-count">{item.id === "all" ? STYLES.length : stylesInCategory(item.id).length}</span>}
+          </button>
+        ))
+      }
+    </div>
+    <input class="search" type="search" data-search placeholder="Buscar estilos…" autocomplete="off" aria-label="Buscar estilos" />
+  </div>
+  <p class="empty" data-empty hidden>No se encontraron estilos</p>
+  <ol class="cards" data-cards>
+    {
+      STYLES.map((style) => {
+        const inactive = !active.has(style.id);
+        const extra = !inactive && shown >= 24;
+        if (!inactive) shown += 1;
+        return <StyleCard item={style} text={renderStyle(style, text)} extra={extra} inactive={inactive} limitMax={limit?.max} />;
+      })
+    }
+  </ol>
+  <button class="btn more" type="button" data-more hidden={shown <= 24}>Cargar más estilos</button>
+  <noscript>
+    <p>Sin JavaScript verás los ejemplos, pero no podrás escribir el tuyo. Activa JavaScript para usar el generador.</p>
+  </noscript>
+</section>
+
+<script>
+  import { mountGenerator } from "../scripts/generator.ts";
+  for (const root of document.querySelectorAll<HTMLElement>("[data-generator]")) mountGenerator(root);
+</script>
