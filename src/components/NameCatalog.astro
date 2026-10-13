@@ -1,0 +1,60 @@
+---
+import { NICK_CATEGORIES, NICK_PREVIEW, NICK_TOTAL } from "../data/nicknames.ts";
+---
+
+<section class="section" aria-labelledby="catalogo-nombres">
+  <h2 id="catalogo-nombres">Toca un nombre para copiarlo</h2>
+  <p class="lede">
+    {NICK_TOTAL} nombres en {NICK_CATEGORIES.length} categorías. Cada bloque enseña {NICK_PREVIEW} y el resto se abre con Ver todos.
+    El número es el largo del texto copiado. En rojo pasa de 12 y no cabe en el nick de Free Fire.
+  </p>
+  <nav class="chips" aria-label="Ir a categoría">
+    {
+      NICK_CATEGORIES.map((category) => (
+        <a class="chip" href={`#${category.id}`}>
+          {category.emoji} {category.short}
+        </a>
+      ))
+    }
+  </nav>
+  {
+    NICK_CATEGORIES.map((category) => (
+      <section class="nick-block" id={category.id} data-nick-group>
+        <h3>{category.emoji} {category.title}</h3>
+        <p>{category.blurb}</p>
+        <p class="fine">{category.names.length} nombres · {category.fits} caben en 12</p>
+        <div class="name-grid">
+          {
+            category.names.map((nick, index) => (
+              <button
+                class:list={["name-card", index >= NICK_PREVIEW && "is-extra"]}
+                type="button"
+                data-nick={nick.text}
+              >
+                <span class="name-output">{nick.text}</span>
+                <span class="name-meta">
+                  {nick.style}
+                  <span class:list={["name-len", nick.over && "is-over"]}>{nick.length}/12</span>
+                </span>
+                <span class="name-status" data-status></span>
+              </button>
+            ))
+          }
+        </div>
+        <p class="fine" data-nick-count>
+          Mostrando {Math.min(NICK_PREVIEW, category.names.length)} de {category.names.length}
+        </p>
+        {
+          category.names.length > NICK_PREVIEW && (
+            <button class="btn more" type="button" data-nick-more>Ver todos</button>
+          )
+        }
+      </section>
+    ))
+  }
+</section>
+
+<script>
+  import { mountNames } from "../scripts/names.ts";
+  mountNames();
+</script>

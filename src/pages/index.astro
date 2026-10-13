@@ -5,11 +5,13 @@ import UseCaseGrid from "../components/UseCaseGrid.astro";
 import FaqList from "../components/FaqList.astro";
 import AlphabetTable from "../components/AlphabetTable.astro";
 import { HOME_FAQ } from "../data/landings.ts";
-import { DEFAULT_SAMPLE, PROFILE_PHRASES } from "../data/site.ts";
+import { NICK_CATEGORIES, NICK_TOTAL } from "../data/nicknames.ts";
+import { DEFAULT_SAMPLE, PROFILE_PHRASES, hrefFor } from "../data/site.ts";
+import { getStyle, renderStyle } from "../lib/styles.ts";
 import { jsonLdScript, pageGraph } from "../lib/seo.ts";
 
 const description =
-  "Generador de letras bonitas para copiar y pegar. Nombres y bios de Instagram y TikTok, mensajes de WhatsApp y nicks de Free Fire.";
+  "Conversor de letras bonitas para copiar y pegar, y más de 1000 nombres para Free Fire. Estilos para Instagram, TikTok y WhatsApp.";
 const origin = Astro.site?.href;
 const jsonLd = jsonLdScript(
   pageGraph({
@@ -20,6 +22,39 @@ const jsonLd = jsonLdScript(
     crumbs: origin ? [{ name: "Inicio", url: origin }] : [],
   }),
 );
+
+const jumps = [
+  ["nombres-para-free-fire", "Free Fire"],
+  ["letras-cursivas", "Cursiva"],
+  ["letras-goticas", "Gótica"],
+  ["letras-para-instagram", "Instagram"],
+  ["letras-para-whatsapp", "WhatsApp"],
+  ["letras-para-tiktok", "TikTok"],
+  ["letras-negritas", "Negrita"],
+  ["letras-chiquitas", "Pequeña"],
+  ["letras-burbuja", "Burbuja"],
+  ["simbolos", "Símbolos"],
+  ["texto-invisible", "Invisible"],
+  ["abecedario", "Alfabeto"],
+] as const;
+
+const showcases = [
+  ["gotica", "Gótica", "Nicks y títulos con carácter"],
+  ["cursiva", "Cursiva", "Bios y mensajes"],
+  ["negrita", "Negrita", "Lo que tiene que leerse"],
+  ["burbuja", "Burbuja", "Nombres que se ven de lejos"],
+  ["ancha", "Ancha", "Texto que ocupa el ancho"],
+  ["versalitas", "Versalitas", "Nombres pequeños"],
+] as const;
+
+const places = [
+  ["Redes", "Nombre, biografía y pies de foto en Instagram y TikTok. El @usuario no acepta estas letras."],
+  ["Juegos", "Nicks de Free Fire (12 caracteres), Discord y el nombre visible de Roblox."],
+  ["Mensajes", "Chats, estados y saludos de WhatsApp. El contacto a veces admite menos símbolos que el estado."],
+  ["Títulos", "Portadas, apuntes y encabezados para pegar en un documento o en Canva."],
+  ["Arte", "Una palabra decorada para un diseño. Esto copia texto, no una imagen ni un molde."],
+  ["Anuncios", "Un titular corto que se distinga en un feed lleno de texto plano."],
+] as const;
 ---
 
 <BaseLayout title="Letras bonitas para copiar y pegar" description={description} jsonLd={jsonLd}>
@@ -28,10 +63,34 @@ const jsonLd = jsonLdScript(
       <p class="eyebrow">Gratis y sin registro</p>
       <h1>Letras bonitas para copiar y pegar</h1>
       <p class="lede">
-        Escribe una vez. Copia el estilo. Pégalo en Instagram, TikTok, WhatsApp o en un nombre de Free Fire.
+        Escribe una vez y copia el estilo. {NICK_TOTAL} nombres para Free Fire están listos, y el conversor cubre Instagram, TikTok y WhatsApp.
       </p>
+      <nav class="chips" aria-label="Páginas">
+        {jumps.map(([slug, label]) => <a class="chip" href={hrefFor(slug)}>{label}</a>)}
+      </nav>
     </header>
     <Generator sample={DEFAULT_SAMPLE} phrases={PROFILE_PHRASES} />
+    <section class="section">
+      <h2>Nombres para Free Fire</h2>
+      <p class="lede">
+        {NICK_TOTAL} nicknames en {NICK_CATEGORIES.length} categorías, 60 en cada una. Se ven 12 y el resto se abre en la página.
+        El contador rojo avisa cuando no caben en 12 caracteres.
+      </p>
+      <div class="name-grid">
+        {
+          NICK_CATEGORIES.find((item) => item.id === "chidos")
+            ?.names.filter((nick) => !nick.over)
+            .slice(0, 8)
+            .map((nick) => (
+              <a class="name-card" href="/nombres-para-free-fire/#chidos">
+                <span class="name-output">{nick.text}</span>
+                <span class="name-meta">{nick.style} · {nick.length}/12</span>
+              </a>
+            ))
+        }
+      </div>
+      <p><a class="btn" href="/nombres-para-free-fire/">Ver los {NICK_TOTAL} nombres</a></p>
+    </section>
     <section class="section">
       <h2>Para qué se usan</h2>
       <UseCaseGrid />
@@ -40,24 +99,41 @@ const jsonLd = jsonLdScript(
       <h2>¿Cómo usar el conversor?</h2>
       <ol class="steps">
         <li>Escribe tu texto. Si no sabes por dónde empezar, toca una frase lista.</li>
-        <li>Elige el estilo. En un nick de Free Fire, mira que la tarjeta no pase de 12 caracteres.</li>
+        <li>Recorre los estilos. Los 60 primeros están a la vista; Cargar más abre el resto.</li>
         <li>Pulsa Copiar. El botón dirá ¡Copiado!.</li>
         <li>Pega el resultado en la bio, el chat, el estado o el juego.</li>
       </ol>
     </section>
-    <section class="section prose">
+    <section class="section">
       <h2>Dónde pegarlas</h2>
-      <p>
-        En Instagram y TikTok van en el nombre visible y en la biografía, no en el @usuario.
-        En WhatsApp van en el chat, el estado y, si el teléfono lo permite, el nombre del contacto.
-        En Free Fire van en el nick, que admite 12 caracteres. Discord admite unos 32 en el apodo.
-        En Roblox el @usuario no acepta estas letras; pruébalas solo en el nombre visible.
-      </p>
-      <p>
-        <a href="/letras-para-free-fire/">Nombres para Free Fire</a>,
-        <a href="/letras-para-instagram/">letras para Instagram</a>,
-        <a href="/letras-para-whatsapp/">letras para WhatsApp</a>.
-      </p>
+      <div class="cases">
+        {
+          places.map(([title, text]) => (
+            <article class="case">
+              <h3>{title}</h3>
+              <p>{text}</p>
+            </article>
+          ))
+        }
+      </div>
+    </section>
+    <section class="section">
+      <h2>Tipos de letras</h2>
+      <div class="name-grid">
+        {
+          showcases.map(([id, label, note]) => {
+            const style = getStyle(id);
+            const sample = style ? renderStyle(style, "Letras") : "Letras";
+            return (
+              <article class="name-card">
+                <span class="name-output">{sample}</span>
+                <span class="name-meta">{label}</span>
+                <span class="fine">{note}</span>
+              </article>
+            );
+          })
+        }
+      </div>
     </section>
     <section class="section">
       <h2>Abecedario</h2>

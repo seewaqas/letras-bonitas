@@ -1,0 +1,34 @@
+---
+const hangul = "\u3164";
+const samples = [
+  { label: "Un espacio en blanco", text: hangul, note: "U+3164, relleno Hangul. Es el espacio que más juegos aceptan dentro de un nombre." },
+  { label: "Cinco espacios", text: hangul.repeat(5), note: "Cinco caracteres. En Free Fire te quedan 7 del límite de 12." },
+  { label: "Luna y Nova separados", text: `Luna${hangul}Nova`, note: "Las dos palabras se leen juntas, con un hueco que un espacio normal a veces no deja." },
+  { label: "Espacio que no se parte", text: "\u00A0", note: "U+00A0. Un espacio de no separación, útil en una frase, no en un nick vacío." },
+  { label: "Espacio ancho", text: "\u3000", note: "U+3000. Un espacio ideográfico, más ancho que el del teclado." },
+];
+---
+
+<section class="section" aria-labelledby="espacios-blancos">
+  <h2 id="espacios-blancos">Espacios en blanco para copiar</h2>
+  <p class="lede">
+    Toca una tarjeta. El carácter no se ve, pero se copia. Cuenta como un carácter en el nick.
+  </p>
+  <div class="name-grid">
+    {
+      samples.map((sample) => (
+        <button class="name-card" type="button" data-nick={sample.text}>
+          <span class="name-output blank-preview" aria-hidden="true">{sample.text}</span>
+          <span class="name-meta">{sample.label}</span>
+          <span class="fine">{sample.note}</span>
+          <span class="name-status" data-status></span>
+        </button>
+      ))
+    }
+  </div>
+</section>
+
+<script>
+  import { mountNames } from "../scripts/names.ts";
+  mountNames();
+</script>

@@ -1,8 +1,9 @@
+import { STYLE_PAGE_SIZE } from "../data/site.ts";
 import { clampInput, visibleLength } from "../lib/transform.ts";
 import { STYLES, renderStyle } from "../lib/styles.ts";
 
 const FAV_KEY = "lb-favorites";
-const PAGE_SIZE = 24;
+const PAGE_SIZE = STYLE_PAGE_SIZE;
 
 function readFavs(): Set<string> {
   try {

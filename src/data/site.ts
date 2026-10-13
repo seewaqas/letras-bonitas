@@ -1,5 +1,8 @@
 export const SITE_NAME = "Letras Bonitas";
 
+/** Styles shown before "Cargar más", matching a full first screen of results. */
+export const STYLE_PAGE_SIZE = 60;
+
 export const DEFAULT_SAMPLE = "Letras Bonitas";
 
 export type Phrase = {

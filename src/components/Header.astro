@@ -7,10 +7,10 @@ const logo = mark ? renderStyle(mark, "Letras") : "Letras";
 const path = Astro.url.pathname;
 
 const primary = [
+  ["nombres-para-free-fire", "Free Fire"],
   ["letras-para-instagram", "Instagram"],
   ["letras-para-whatsapp", "WhatsApp"],
-  ["letras-para-free-fire", "Free Fire"],
-  ["letras-para-discord", "Discord"],
+  ["letras-cursivas", "Cursiva"],
 ] as const;
 
 const styles = [
@@ -23,6 +23,8 @@ const styles = [
   ["letras-graffiti", "Graffiti"],
   ["letras-decoradas", "Decoradas"],
   ["abecedario", "Abecedario"],
+  ["texto-invisible", "Invisible"],
+  ["simbolos", "Símbolos"],
 ] as const;
 
 function current(slug: string): "page" | undefined {

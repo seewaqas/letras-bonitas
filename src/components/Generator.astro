@@ -1,7 +1,7 @@
 ---
 import StyleCard from "./StyleCard.astro";
 import { CATEGORIES, STYLES, renderStyle, stylesInCategory } from "../lib/styles.ts";
-import type { Phrase, TextLimit } from "../data/site.ts";
+import { STYLE_PAGE_SIZE, type Phrase, type TextLimit } from "../data/site.ts";
 import { clampInput, visibleLength } from "../lib/transform.ts";
 
 interface Props {
@@ -62,13 +62,13 @@ const length = visibleLength(text);
     {
       STYLES.map((style) => {
         const inactive = !active.has(style.id);
-        const extra = !inactive && shown >= 24;
+        const extra = !inactive && shown >= STYLE_PAGE_SIZE;
         if (!inactive) shown += 1;
         return <StyleCard item={style} text={renderStyle(style, text)} extra={extra} inactive={inactive} limitMax={limit?.max} />;
       })
     }
   </ol>
-  <button class="btn more" type="button" data-more hidden={shown <= 24}>Cargar más estilos</button>
+  <button class="btn more" type="button" data-more hidden={shown <= STYLE_PAGE_SIZE}>Cargar más estilos</button>
   <noscript>
     <p>Sin JavaScript verás los ejemplos, pero no podrás escribir el tuyo. Activa JavaScript para usar el generador.</p>
   </noscript>

@@ -35,6 +35,8 @@ export type Landing = {
   related: readonly string[];
   alphabet: boolean;
   symbols: boolean;
+  names?: boolean;
+  blanks?: boolean;
 };
 
 const copySteps = (place: string): string[] => [
@@ -326,6 +328,126 @@ export const LANDINGS: readonly Landing[] = [
     symbols: false,
   },
   {
+    slug: "nombres-para-free-fire",
+    title: "Nombres para Free Fire | Más de 1000 nicknames",
+    description:
+      "Más de 1000 nombres para Free Fire listos para copiar: chidos, de mujer, de clan, dúos y con símbolos. Cada uno marca si cabe en 12 caracteres.",
+    h1: "Nombres para Free Fire",
+    eyebrow: "Generador de nicknames",
+    paragraphs: [
+      "Elige un nombre ya hecho o escribe el tuyo arriba. Hay 60 nombres en cada categoría y se ven 12 al empezar. Ver todos abre el resto.",
+      "Free Fire admite 12 caracteres en el nick. El número de cada tarjeta es el texto que vas a pegar. Si está en rojo, ese nombre no cabe.",
+    ],
+    category: "juegos",
+    sample: "Fuego",
+    limit: {
+      label: "Nick de Free Fire",
+      max: 12,
+      hint: "El nombre del jugador admite 12 caracteres. Si la tarjeta pasa de 12, ese estilo no cabe en el nick.",
+    },
+    phrases: FREE_FIRE_PHRASES,
+    steps: [
+      "Toca una categoría o escribe tu palabra en el conversor.",
+      "Mira el contador. En negro cabe en los 12. En rojo, no.",
+      "Toca el nombre. Verás ¡Copiado!.",
+      "Pégalo en el perfil de Free Fire, junto al lápiz del nickname.",
+    ],
+    sections: [
+      {
+        heading: "Cómo cambiar el nombre en Free Fire",
+        paragraphs: [
+          "Abre el juego, entra en tu perfil y toca el lápiz junto al nickname. Pega el nombre y confirma con la tarjeta de cambio o los diamantes que pida el juego.",
+          "El id numérico no cambia. Si el juego rechaza un símbolo, quita el adorno y deja la gótica o la negrita.",
+        ],
+      },
+      {
+        heading: "Qué hace que un nick se lea en la partida",
+        paragraphs: [
+          "Las palabras de 4 a 6 letras en gótica, negrita o versalitas se leen en el lobby. Un marco largo queda bien en una bio y mal en un nombre de 12.",
+          "Los dúos van en una sola copia porque son dos nicks. Pártelos si cada jugador tiene su propio límite.",
+        ],
+      },
+    ],
+    faq: [
+      {
+        q: "¿Cuántos nombres hay?",
+        a: "Más de 1000, en 17 categorías de 60. Cada categoría muestra 12 y el botón Ver todos abre los 60.",
+      },
+      {
+        q: "¿Puedo copiarlos?",
+        a: "Sí. Toca la tarjeta. El nombre pasa al portapapeles sin seleccionar letra por letra.",
+      },
+      {
+        q: "¿Cuál es el límite de Free Fire?",
+        a: "12 caracteres. La tarjeta se pone en rojo cuando el texto copiado pasa de 12.",
+      },
+      {
+        q: "¿Sirven los símbolos?",
+        a: "Muchos sí. Si la partida sustituye uno por un cuadrado, usa gótica o negrita, que fallan menos.",
+      },
+      {
+        q: "¿Y si quiero escribir el mío?",
+        a: "Usa el conversor de arriba. También está la página de letras para Free Fire, con los estilos cortos y el mismo límite.",
+      },
+    ],
+    related: ["letras-para-free-fire", "letras-goticas", "letras-para-discord", "letras-burbuja", "texto-invisible", "simbolos"],
+    alphabet: false,
+    symbols: false,
+    names: true,
+  },
+  {
+    slug: "texto-invisible",
+    title: "Texto invisible para copiar y pegar",
+    description:
+      "Copia un espacio en blanco para nombres y mensajes. El relleno Hangul cuenta como un carácter y es el que más juegos aceptan.",
+    h1: "Texto invisible para copiar y pegar",
+    eyebrow: "Espacio en blanco",
+    paragraphs: [
+      "Un texto invisible es un carácter que ocupa sitio y no dibuja una letra. Sirve para separar dos palabras de un nick o para dejar un hueco donde un espacio normal no entra.",
+      "El más fiable en juegos es el relleno Hangul, U+3164. Cuenta dentro de los 12 caracteres de Free Fire. No borra tu nombre: solo mete un espacio.",
+    ],
+    category: "all",
+    sample: "Luna",
+    phrases: [],
+    steps: [
+      "Elige un espacio: uno, cinco, o Luna y Nova ya separados.",
+      "Toca la tarjeta.",
+      "Pégalo donde quieras el hueco.",
+      "Si la app lo borra, prueba el espacio ancho.",
+    ],
+    sections: [
+      {
+        heading: "Dónde se usa",
+        paragraphs: [
+          "En un nick, para separar dos palabras cortas sin que el juego las junte. En un mensaje, para un hueco que no se come al enviar.",
+          "No es un mensaje vacío de verdad. La app recibe un carácter. Algunas lo enseñan como un cuadrito y otras lo esconden.",
+        ],
+      },
+    ],
+    faq: [
+      {
+        q: "¿Por qué no se ve nada?",
+        a: "Porque el carácter es un espacio. Después de copiar, pégalo entre dos letras para comprobar que está.",
+      },
+      {
+        q: "¿Cuenta en Free Fire?",
+        a: "Sí. Cada espacio invisible cuenta como un carácter de los 12.",
+      },
+      {
+        q: "¿WhatsApp lo envía?",
+        a: "A veces lo recorta. Si desaparece, usa el espacio ancho de la lista.",
+      },
+      {
+        q: "¿Puedo generar cientos?",
+        a: "Cinco ya se notan en un nick. Más que eso te deja sin sitio para el nombre.",
+      },
+    ],
+    related: ["nombres-para-free-fire", "simbolos", "letras-para-whatsapp", "letras-para-free-fire"],
+    alphabet: false,
+    symbols: false,
+    blanks: true,
+  },
+  {
     slug: "letras-para-free-fire",
     title: "Letras bonitas para Free Fire | Nombres cortos",
     description:
@@ -385,12 +507,12 @@ export const LANDINGS: readonly Landing[] = [
       },
     ],
     related: [
+      "nombres-para-free-fire",
       "letras-goticas",
       "letras-para-discord",
       "letras-para-roblox",
       "letras-burbuja",
       "letras-negritas",
-      "letras-chiquitas",
     ],
     alphabet: false,
     symbols: false,
@@ -1114,7 +1236,7 @@ export const HOME_FAQ: readonly LandingFaq[] = [
   },
   {
     q: "¿Cuántos caracteres admite un nombre de Free Fire?",
-    a: "12. En la página de Free Fire cada estilo marca si el nick cabe.",
+    a: "12. En Nombres para Free Fire hay más de 1000 nicknames y cada uno marca si cabe.",
   },
   {
     q: "¿Funcionan en todas las redes?",
@@ -1156,13 +1278,13 @@ export const USE_CASES: readonly UseCase[] = [
   },
   {
     title: "Nombres para juegos",
-    text: "Nicks para Free Fire (12 caracteres), Discord y el nombre visible de Roblox.",
-    href: "/letras-para-free-fire/",
+    text: "Más de 1000 nombres para Free Fire, con el límite de 12 a la vista. También Discord y Roblox.",
+    href: "/nombres-para-free-fire/",
     links: [
-      { href: "/letras-para-free-fire/", label: "Free Fire" },
+      { href: "/nombres-para-free-fire/", label: "Nombres Free Fire" },
+      { href: "/letras-para-free-fire/", label: "Letras Free Fire" },
       { href: "/letras-para-discord/", label: "Discord" },
       { href: "/letras-para-roblox/", label: "Roblox" },
-      { href: "/letras-goticas/", label: "Góticas" },
     ],
   },
   {
