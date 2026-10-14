@@ -6,7 +6,7 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "test": "node --experimental-strip-types --test src/lib/transform.test.ts src/lib/styles.test.ts src/data/nicknames.test.ts"
+    "test": "node --experimental-strip-types --test src/lib/transform.test.ts src/lib/styles.test.ts src/lib/numeros.test.ts src/data/nicknames.test.ts"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.4",

@@ -1,3 +1,4 @@
+import { CLUSTER_LANDINGS } from "./cluster-pages.ts";
 import {
   DEFAULT_SAMPLE,
   FREE_FIRE_PHRASES,
@@ -37,6 +38,8 @@ export type Landing = {
   symbols: boolean;
   names?: boolean;
   blanks?: boolean;
+  /** Real Spanish number-to-words tool. Fancy digits live on another page. */
+  numbers?: boolean;
 };
 
 const copySteps = (place: string): string[] => [
@@ -46,7 +49,7 @@ const copySteps = (place: string): string[] => [
   `Pega el resultado en ${place}.`,
 ];
 
-export const LANDINGS: readonly Landing[] = [
+const CORE_LANDINGS: readonly Landing[] = [
   {
     slug: "letras-para-instagram",
     title: "Letras bonitas para Instagram",
@@ -297,6 +300,13 @@ export const LANDINGS: readonly Landing[] = [
           "Si una letra se queda en el estilo normal, Unicode no tiene esa pieza en cursiva. La palabra sigue siendo legible.",
         ],
       },
+      {
+        heading: "Cursiva elegante y conversor",
+        paragraphs: [
+          "La cursiva elegante, en esta página, es la manuscrita o la negrita cursiva: la que se lee como una frase escrita con calma. No hay otra herramienta. El conversor de arriba es el que cambia la palabra.",
+          "Si buscas el trazo para calcarlo a mano, la página de letras a mano explica qué se puede copiar y qué hay que dibujar. Aquí el resultado se pega.",
+        ],
+      },
     ],
     faq: [
       {
@@ -321,7 +331,7 @@ export const LANDINGS: readonly Landing[] = [
       "letras-aesthetic",
       "letras-goticas",
       "letras-con-corazones",
-      "letras-para-instagram",
+      "lettering-letras-a-mano",
       "abecedario",
     ],
     alphabet: false,
@@ -390,7 +400,7 @@ export const LANDINGS: readonly Landing[] = [
         a: "Usa el conversor de arriba. También está la página de letras para Free Fire, con los estilos cortos y el mismo límite.",
       },
     ],
-    related: ["letras-para-free-fire", "letras-goticas", "letras-para-discord", "letras-burbuja", "texto-invisible", "simbolos"],
+    related: ["letras-para-free-fire", "letras-goticas", "letras-para-discord", "nombres-nicks-juegos", "texto-invisible", "simbolos"],
     alphabet: false,
     symbols: false,
     names: true,
@@ -680,7 +690,7 @@ export const LANDINGS: readonly Landing[] = [
       "letras-para-discord",
       "letras-para-roblox",
       "letras-negritas",
-      "letras-graffiti",
+      "letras-cholas",
       "abecedario",
     ],
     alphabet: false,
@@ -745,7 +755,7 @@ export const LANDINGS: readonly Landing[] = [
     h1: "Letras chiquitas para copiar y pegar",
     eyebrow: "Estilo",
     paragraphs: [
-      "Las letras chiquitas sirven para una bio, un comentario o una aclaración al lado de un nombre. Versalitas, superíndice y subíndice están en esta página.",
+      "Las letras chiquitas, también llamadas pequeñas, sirven para una bio, un comentario o una aclaración al lado de un nombre. Versalitas, superíndice y subíndice están en esta página.",
       "Unicode no tiene todas las letras en subíndice. Las que faltan se quedan en tamaño normal para no inventar un carácter.",
     ],
     category: "chiquitas",
@@ -847,7 +857,7 @@ export const LANDINGS: readonly Landing[] = [
       {
         heading: "Qué puedes esperar",
         paragraphs: [
-          "Cuadrada, bloque, sombra y glitch suave están en este filtro. El glitch añade marcas encima de la letra: se ve más sucio y en algunos teléfonos se descuadra. Para un nick, empieza por la cuadrada.",
+          "Cuadrada, bloque, sombra y glitch suave están en este filtro. El glitch añade marcas encima de la letra: se ve más sucio y en algunos teléfonos se descuadra. Para un nick, empieza por la cuadrada. Si buscabas letras cholas, la gótica y este bloque están reunidos en esa página.",
           "En Free Fire confirma que la tarjeta no pase de 12. El glitch puede contar de más dentro del juego aunque aquí se vea como una sola letra.",
         ],
       },
@@ -870,7 +880,7 @@ export const LANDINGS: readonly Landing[] = [
         a: "La cuadrada, sí. Revisa el contador de 12 antes de copiar un estilo con símbolos.",
       },
     ],
-    related: ["letras-goticas", "letras-para-free-fire", "letras-burbuja", "letras-para-discord", "letras-decoradas", "letras-negritas"],
+    related: ["letras-cholas", "letras-goticas", "letras-para-free-fire", "letras-burbuja", "letras-decoradas", "letras-negritas"],
     alphabet: false,
     symbols: false,
   },
@@ -1040,6 +1050,13 @@ export const LANDINGS: readonly Landing[] = [
           "Si Facebook borra el estilo al guardar el nombre de la cuenta, no insistas: va contra la norma de nombres de esa red.",
         ],
       },
+      {
+        heading: "Negritas en Facebook",
+        paragraphs: [
+          "Facebook no tiene un botón de negrita en todos los campos. La negrita de estas tarjetas es otro carácter, así que se queda en una publicación, en un comentario y en la intro.",
+          "En el nombre de la cuenta no cuentes con ella. Ese campo quiere el nombre real y suele quitar el adorno al guardar.",
+        ],
+      },
     ],
     faq: [
       {
@@ -1071,7 +1088,7 @@ export const LANDINGS: readonly Landing[] = [
     h1: "Letras bonitas para títulos",
     eyebrow: "Lettering",
     paragraphs: [
-      "Para el título de una portada, una diapositiva o un cartel. Escribe Matemáticas, Biología, Historia o la frase que necesites y copia el estilo.",
+      "Para el título de una portada, una diapositiva, una libreta o un cartel. Escribe Matemáticas, Biología, Historia o la frase que necesites y copia el estilo.",
       "El resultado es texto. Pégalo en Word, PowerPoint o Canva y cambia allí el tamaño. No es un molde para recortar ni una hoja de lettering.",
     ],
     category: "all",
@@ -1085,10 +1102,10 @@ export const LANDINGS: readonly Landing[] = [
     ],
     sections: [
       {
-        heading: "Portadas y carteles",
+        heading: "Portadas y libretas",
         paragraphs: [
-          "Las frases listas cubren materias que la gente busca junto a letras bonitas: matemáticas, biología, historia, inglés, español y un bienvenidos.",
-          "Un título largo en burbuja se vuelve difícil de leer. Para una portada, la gótica negrita o la cursiva manuscrita suelen bastar.",
+          "Las frases listas cubren materias que la gente busca junto a letras bonitas: matemáticas, biología, historia, inglés, español y un bienvenidos. En la libreta pega el título y sigue los apuntes en tu letra.",
+          "Un título largo en burbuja se vuelve difícil de leer. Para una portada, la gótica negrita o la cursiva manuscrita suelen bastar. Un letrero para la puerta está en Letras para carteles.",
         ],
       },
     ],
@@ -1099,7 +1116,7 @@ export const LANDINGS: readonly Landing[] = [
       },
       {
         q: "¿Sirve para imprimir un molde?",
-        a: "No. Si necesitas letras para calcar o recortar, busca una plantilla de lettering. Aquí copias el texto del título.",
+        a: "No es un molde. En Letras para imprimir se explica cómo ampliar este texto en Word. No hay un PDF para recortar.",
       },
       {
         q: "¿Hay un estilo por cada materia?",
@@ -1110,7 +1127,7 @@ export const LANDINGS: readonly Landing[] = [
         a: "Sí. Español mantiene la eñe en todos los estilos.",
       },
     ],
-    related: ["abecedario", "letras-decoradas", "letras-cursivas", "letras-goticas", "letras-negritas", "letras-para-whatsapp"],
+    related: ["abecedario", "letras-para-carteles", "moldes-letras-imprimir", "letras-cursivas", "letras-goticas", "lettering-letras-a-mano"],
     alphabet: false,
     symbols: false,
   },
@@ -1142,8 +1159,8 @@ export const LANDINGS: readonly Landing[] = [
       {
         heading: "Una letra o la palabra",
         paragraphs: [
-          "La tabla sirve cuando buscas cómo se ve la M, la S o la Ñ. El generador sirve cuando ya tienes el nombre escrito.",
-          "Los estilos de la tabla son negrita, cursiva, gótica y burbuja. El resto está en las tarjetas.",
+          "La A bonita, la B, la M o la Ñ están en esta misma tabla. No hay una página por letra: el abecedario completo vive aquí, y repetirlo veintisiete veces no ayudaría a copiarlo.",
+          "Los estilos de la tabla son negrita, cursiva, gótica y burbuja. El generador, debajo, convierte la palabra entera cuando ya no quieres ir letra por letra.",
         ],
       },
     ],
@@ -1165,7 +1182,7 @@ export const LANDINGS: readonly Landing[] = [
         a: "En el generador, sí: escribe la letra en minúscula. La tabla muestra las mayúsculas, que es lo que se busca para un título.",
       },
     ],
-    related: ["letras-cursivas", "letras-goticas", "letras-burbuja", "letras-decoradas", "letras-para-titulos", "letras-negritas"],
+    related: ["letras-cursivas", "letras-goticas", "moldes-letras-imprimir", "letras-para-dibujar", "letras-para-titulos", "letras-negritas"],
     alphabet: true,
     symbols: false,
   },
@@ -1190,10 +1207,10 @@ export const LANDINGS: readonly Landing[] = [
     ],
     sections: [
       {
-        heading: "Símbolos y letras",
+        heading: "Símbolos, emojis e iconos",
         paragraphs: [
-          "Un símbolo suelto no cambia tu nombre. Úsalo al lado de un nick o dentro de una bio, contando los caracteres del destino.",
-          "En Free Fire, un símbolo más el nombre tienen que seguir en 12.",
+          "Corazones, estrellas, flores y marcos están en la caja, junto con kaomojis. Un emoji o un icono suelto no cambia tu nombre: se pega al lado, y cuenta en el límite del sitio donde lo lleves.",
+          "En Free Fire, un símbolo más el nombre tienen que seguir en 12. Si buscas la palabra ya enmarcada, abre Decoradas, Corazones o Emojis.",
         ],
       },
     ],
@@ -1220,6 +1237,8 @@ export const LANDINGS: readonly Landing[] = [
     symbols: true,
   },
 ];
+
+export const LANDINGS: readonly Landing[] = [...CORE_LANDINGS, ...CLUSTER_LANDINGS];
 
 export function getLanding(slug: string): Landing | undefined {
   return LANDINGS.find((landing) => landing.slug === slug);

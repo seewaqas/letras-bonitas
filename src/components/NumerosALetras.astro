@@ -1,0 +1,24 @@
+---
+import { numeroALetras } from "../lib/numeros.ts";
+
+const initial = numeroALetras(21) ?? "";
+---
+
+<section class="section number-tool" data-numeros>
+  <h2>Escribe el número</h2>
+  <p>
+    Convierte un entero, del 0 al 999999, en palabras en español. 21 sale como veintiuno, no como un 2 y un 1 decorados.
+  </p>
+  <div class="number-row">
+    <label class="sr-only" for="numero">Número</label>
+    <input id="numero" data-numero type="text" inputmode="numeric" maxlength="6" value="21" autocomplete="off" />
+    <button class="btn" type="button" data-numero-copy>Copiar palabras</button>
+    <button class="btn btn-clear" type="button" data-numero-use>Pasar al conversor</button>
+  </div>
+  <p class="number-result" data-numero-out>{initial}</p>
+  <p class="fine" data-numero-status role="status"></p>
+</section>
+<script>
+  import { mountNumeros } from "../scripts/numeros.ts";
+  mountNumeros();
+</script>

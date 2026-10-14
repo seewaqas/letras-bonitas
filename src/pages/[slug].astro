@@ -6,6 +6,7 @@ import AlphabetTable from "../components/AlphabetTable.astro";
 import SymbolGrid from "../components/SymbolGrid.astro";
 import NameCatalog from "../components/NameCatalog.astro";
 import BlankCopy from "../components/BlankCopy.astro";
+import NumerosALetras from "../components/NumerosALetras.astro";
 import { LANDINGS } from "../data/landings.ts";
 import { hrefFor } from "../data/site.ts";
 import { jsonLdScript, pageGraph } from "../lib/seo.ts";
@@ -42,6 +43,7 @@ const jsonLd = jsonLdScript(
       <h1>{landing.h1}</h1>
       {landing.paragraphs.map((paragraph) => <p class="lede">{paragraph}</p>)}
     </header>
+    {landing.numbers && <NumerosALetras />}
     {
       landing.symbols ? (
         <SymbolGrid />

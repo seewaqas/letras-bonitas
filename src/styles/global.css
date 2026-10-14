@@ -254,6 +254,28 @@ h2 { font-size: 1.45rem; margin: 0 0 0.6rem; }
 
 .size-row .counter { margin: 0; white-space: nowrap; }
 
+.number-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.number-row input {
+  width: 8rem;
+  border-radius: 0.9rem;
+  border: 1px solid var(--line);
+  background: var(--bg);
+  color: var(--ink);
+  font: inherit;
+  padding: 0.8rem 0.9rem;
+}
+
+.number-result {
+  font-size: 1.35rem;
+  margin: 0.85rem 0 0.25rem;
+}
+
 .field {
   display: flex;
   gap: 0.5rem;
@@ -273,6 +295,7 @@ textarea {
 }
 
 textarea:focus,
+input:focus-visible,
 button:focus-visible,
 a:focus-visible,
 summary:focus-visible {
