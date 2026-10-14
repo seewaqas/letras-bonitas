@@ -7,10 +7,9 @@ const logo = mark ? renderStyle(mark, "Letras") : "Letras";
 const path = Astro.url.pathname;
 
 const primary = [
-  ["nombres-para-free-fire", "Free Fire"],
-  ["letras-para-instagram", "Instagram"],
-  ["letras-para-whatsapp", "WhatsApp"],
-  ["letras-cursivas", "Cursiva"],
+  ["/", "Letras"],
+  ["/simbolos/", "Símbolos"],
+  ["/nombres-para-free-fire/", "Nicks"],
 ] as const;
 
 const styles = [
@@ -33,8 +32,8 @@ const styles = [
   ["letras-redes-sociales", "Redes"],
 ] as const;
 
-function current(slug: string): "page" | undefined {
-  return path === hrefFor(slug) ? "page" : undefined;
+function current(href: string): "page" | undefined {
+  return path === href ? "page" : undefined;
 }
 ---
 
@@ -50,18 +49,18 @@ function current(slug: string): "page" | undefined {
     </button>
     <nav class="nav" id="menu-principal" data-nav aria-label="Principal">
       {
-        primary.map(([slug, label]) => (
-          <a href={hrefFor(slug)} aria-current={current(slug)}>
+        primary.map(([href, label]) => (
+          <a href={href} aria-current={current(href)}>
             {label}
           </a>
         ))
       }
       <details class="menu">
-        <summary>Estilos</summary>
+        <summary>Más</summary>
         <div class="menu-panel">
           {
             styles.map(([slug, label]) => (
-              <a href={hrefFor(slug)} aria-current={current(slug)}>
+              <a href={hrefFor(slug)} aria-current={current(hrefFor(slug))}>
                 {label}
               </a>
             ))

@@ -27,7 +27,7 @@ const canonical = Astro.site ? new URL(Astro.url.pathname, Astro.site).href : un
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="es" />
     {canonical && <meta property="og:url" content={canonical} />}
-    <meta name="theme-color" content="#efe8df" />
+    <meta name="theme-color" content="#7b2ff7" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <script is:inline src="/theme-init.js"></script>
     {jsonLd && <script type="application/ld+json" set:html={jsonLd} />}
